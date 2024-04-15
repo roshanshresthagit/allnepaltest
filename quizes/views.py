@@ -8,7 +8,7 @@ def home(request):
 def display_subjects(request, category_id):
     selected_category = Category.objects.get(pk=category_id)
     subjects = selected_category.subject.all()
-    return render(request, 'category.html', {'category': selected_category, 'subjects': subjects})
+    return render(request, 'subjects.html', {'category': selected_category, 'subjects': subjects})
 
 def quiz_view(request, subject_id):
     quiz = Subject.objects.filter(id=subject_id).first()
