@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="quiz-container">
+    {% for question in quiz.question_set.all %}
+    <div class="question-card">
+        <div class="question-text">
+            <p>{{forloop.counter}}. {{question.text}}</p>
+        </div>
+        {% for option in question.choice_set.all %}
+        <div class="option">
+            <label for="{{option.id}}">
+                <input value="{{option.text}}" type="radio" name="{{option.question.id}}" id="{{option.id}}">
+                {{option.text}}
+            </label>
+            {% if option.is_correct %}
+            <span>{{option.text}}</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

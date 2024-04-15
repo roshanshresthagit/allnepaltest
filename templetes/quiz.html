@@ -3,24 +3,76 @@
 
 {% block content %}
 <div class="quiz-container">
-    {% for question in quiz.question_set.all %}
-    <div class="question-card">
-        <div class="question-text">
-            <p>{{forloop.counter}}. {{question.text}}</p>
-        </div>
-        {% for option in question.choice_set.all %}
-        <div class="option">
-            <label for="{{option.id}}">
-                <input value="{{option.text}}" type="radio" name="{{option.question.id}}" id="{{option.id}}">
-                {{option.text}}
-            </label>
-            {% if option.is_correct %}
-            <span>{{option.text}}</span>
-            {% endif %}
+    <div id="quiz-list">
+        {% for question in quiz.question_set.all %}
+        <div class="question-card">
+            <div class="question-text">
+                <p>{{forloop.counter}}. {{question.text}}</p>
+            </div>
+            {% for option in question.choice_set.all %}
+            <div class="option">
+                <label for="{{option.id}}">
+                    <input value="{{option.text}}" type="radio" name="{{option.question.id}}" id="{{option.id}}">
+                    {{option.text}}
+                </label>
+                {% if option.is_correct %}
+                <span>{{option.text}}</span>
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
         {% endfor %}
     </div>
-    {% endfor %}
+    <div id="pagination-buttons">
+        <button id="prev-button" class="pagination-button" disabled>Previous</button>
+        <button id="next-button" class="pagination-button">Next</button>
+    </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const quizList = document.getElementById("quiz-list");
+        const prevButton = document.getElementById("prev-button");
+        const nextButton = document.getElementById("next-button");
+        const questions = document.querySelectorAll(".question-card");
+        const numPerPage = 2;
+        let currentPage = 0;
+
+        function showPage(page) {
+            questions.forEach((question, index) => {
+                if (index >= page * numPerPage && index < (page + 1) * numPerPage) {
+                    question.style.display = "block";
+                } else {
+                    question.style.display = "none";
+                }
+            });
+            updateButtons();
+        }
+
+        function updateButtons() {
+            prevButton.style.visibility = currentPage === 0 ? "hidden" : "visible";
+            prevButton.disabled = currentPage === 0;
+            nextButton.style.visibility = currentPage === Math.ceil(questions.length / numPerPage) - 1 ? "hidden" : "visible";
+            nextButton.disabled = currentPage === Math.ceil(questions.length / numPerPage) - 1;
+        }
+
+        prevButton.addEventListener("click", function() {
+            if (currentPage > 0) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        });
+
+        nextButton.addEventListener("click", function() {
+            if (currentPage < Math.ceil(questions.length / numPerPage) - 1) {
+                currentPage++;
+                showPage(currentPage);
+            }
+        });
+
+        showPage(currentPage);
+    });
+</script>
+
 
 {% endblock content %}

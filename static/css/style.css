@@ -106,6 +106,8 @@ main {
     flex: 1; /* This will make main take remaining space */
 }
 
+/*================== quize page design starts from here =========================*/
+
 .quiz-container {
     display: flex;
     flex-direction: column;
@@ -119,8 +121,7 @@ main {
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
-    width: 80%; /* Adjust width as needed */
-    max-width: 600px; /* Set maximum width if necessary */
+    width: 600px; 
 }
 
 .question-text {
@@ -133,5 +134,28 @@ main {
 }
 
 .option label {
+    margin-right: 10px;
+}
+
+.pagination-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-button:hover {
+    background-color: #0056b3;
+}
+
+#pagination-buttons {
+    margin-top: 20px;
+    margin-bottom: 20px; 
+}
+
+#pagination-buttons button {
     margin-right: 10px;
 }
