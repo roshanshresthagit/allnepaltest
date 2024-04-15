@@ -105,3 +105,33 @@ body {
 main {
     flex: 1; /* This will make main take remaining space */
 }
+
+.quiz-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.question-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    width: 80%; /* Adjust width as needed */
+    max-width: 600px; /* Set maximum width if necessary */
+}
+
+.question-text {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.option {
+    margin-bottom: 10px;
+}
+
+.option label {
+    margin-right: 10px;
+}

@@ -1,33 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div class="questions my-4">
-        {% for question in quiz.question_set.all %}
-        <div class="card mb-2 question">
-            <div class="card-header fw-bold">
-                Question {{forloop.counter}}
-            </div>
-            <div class="card-body">
-                <p class="card-text">{{question.text}}</p>
-                {% for option in question.choice_set.all %}
-                <div class="form-check">
-                    <label class="form-check-label" for="{{option.id}}">
-                        <input class="form-check-input" value="{{option.text}}" type="radio" name="{{option.question.id}}" id="{{option.id}}">
-                        {{option.text}}
-                    </label>
-                    {% if option.is_correct %}
-                    <span class="visually-hidden correct-answer">{{option.text}}</span>
-                    {% endif %}
-                </div>
-                {% endfor %}
-            </div>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="quiz-container">
+    {% for question in quiz.question_set.all %}
+    <div class="question-card">
+        <div class="question-text">
+            <p>{{forloop.counter}}. {{question.text}}</p>
+        </div>
+        {% for option in question.choice_set.all %}
+        <div class="option">
+            <label for="{{option.id}}">
+                <input value="{{option.text}}" type="radio" name="{{option.question.id}}" id="{{option.id}}">
+                {{option.text}}
+            </label>
+            {% if option.is_correct %}
+            <span>{{option.text}}</span>
+            {% endif %}
         </div>
         {% endfor %}
     </div>
-</body>
-</html>
+    {% endfor %}
+</div>
+
+{% endblock content %}
