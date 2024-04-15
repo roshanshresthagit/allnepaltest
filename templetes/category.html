@@ -9,7 +9,7 @@
     <h1>Subjects</h1>
     <ul>
         {% for subject in subjects %}
-            <li>{{ subject.name }}</li>
+            <li><a href="{% url 'quiz_view' subject.id %}">{{ subject.name }}</a></li>
         {% endfor %}
     </ul>
 </body>

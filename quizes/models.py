@@ -6,7 +6,7 @@ import pandas as pd
 
 class Subject(models.Model):
     name = models.CharField(max_length=255)
-    quiz_file = models.FileField(upload_to='quiz/{name}/',null=False,default='none')
+    quiz_file = models.FileField(upload_to='quiz/',null=False,default='none')
 
 
     def __str__(self) -> str:
@@ -59,6 +59,7 @@ class Category(models.Model):
 class Question(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     text = models.TextField()
+    # image = models.ImageField(blank=True,null=True)
 
     def __str__(self) -> str:
         return self.text[:25]
@@ -67,6 +68,7 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     text = models.CharField(max_length=255)
     is_correct = models.BooleanField(default=False)
+    # score = models.FloatField(default=1.0)
 
     def __str__(self):
         return f"{self.question.text[:50]}, {self.text[:20]}"
@@ -74,6 +76,7 @@ class Choice(models.Model):
 class Answerreason(models.Model):
     question = models.OneToOneField(Question,on_delete=models.CASCADE)
     text = models.CharField(max_length=255)
+    image = models.ImageField(blank=True,null=True)
 
     def __str__(self):
         return self.text[:50]

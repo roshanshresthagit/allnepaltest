@@ -10,3 +10,7 @@ def display_subjects(request, category_id):
     subjects = selected_category.subject.all()
     return render(request, 'category.html', {'category': selected_category, 'subjects': subjects})
 
+def quiz_view(request, subject_id):
+    quiz = Subject.objects.filter(id=subject_id).first()
+    context ={"quiz":quiz}
+    return render(request,'quiz.html',context)
