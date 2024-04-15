@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <main>
-    <!-- Category Cards -->
     <section class="category-cards">
-        <!-- Category cards loop -->
         {% for category in categories %}
             <div class="category-card">
                 <h2>{{ category.name }}</h2>

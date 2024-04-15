@@ -2,9 +2,8 @@
 {%extends 'base.html' %}
 {% block content %}
 
-    
+
 <section class="category-cards">
-    <!-- Category cards loop -->
     {% for subject in subjects %}
         <div class="category-card">
             <h2>{{ subject.name }}</h2>
