@@ -4,12 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Category</title>
+    <style>
+        /* Header Styles */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-right: 20px;
+        }
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+        form {
+            display: flex;
+            align-items: center;
+        }
+        form input[type="text"] {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #fff;
+        }
+        form button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Category Card Styles */
+        .category-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .category-card {
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        .category-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .category-card h2 {
+            margin-top: 0;
+        }
+        .category-card p {
+            margin-bottom: 10px;
+        }
+        .category-card a {
+            text-decoration: none;
+            color: #333;
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+        .category-card a:hover {
+            background-color: #45a049;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        .social-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
 </head>
 <body>
-    <ul>
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Courses</a></li>
+                <li><a href="#">Tests</a></li>
+                <!-- Add more navigation items as needed -->
+            </ul>
+        </nav>
+        <form action="#" method="GET">
+            <input type="text" name="search" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+    </header>
+
+    <!-- Category Cards -->
+    <section class="category-cards">
+        <!-- Category cards loop -->
         {% for category in categories %}
-            <li><a href="{% url 'display_subjects' category.id %}">{{ category.name }}</a></li>
+            <div class="category-card">
+                <h2>{{ category.name }}</h2>
+                <p>Description or any other information about the category</p>
+                <a href="{% url 'display_subjects' category.id %}">View Subjects</a>
+            </div>
         {% endfor %}
-    </ul>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
+        <p>Contact us: info@example.com</p>
+        <div class="social-links">
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <!-- Add more social media links as needed -->
+        </div>
+    </footer>
 </body>
 </html>
