@@ -34,7 +34,6 @@
         </div>
     </div>
 </div>
-
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const quizList = document.getElementById("quiz-list");
@@ -46,17 +45,27 @@
 
         // Timer
         var timerDisplay = document.getElementById('timerDisplay');
-        var startTime = new Date().getTime();
+        var startTime = new Date().getTime() + (2 * 60 * 60 * 1000) + (1 * 60 * 1000); // Start from 2 hours 1 minute
+        updateTimer(); // Update timer initially to avoid delay
 
         function updateTimer() {
             var currentTime = new Date().getTime();
-            var elapsedTime = currentTime - startTime;
-            var minutes = Math.floor(elapsedTime / (1000 * 60));
-            var seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
-            timerDisplay.textContent = ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
+            var remainingTime = startTime - currentTime;
+
+            if (remainingTime <= 0) {
+                clearInterval(timerInterval);
+                timerDisplay.textContent = '00:00:00';
+                return;
+            }
+
+            var hours = Math.floor(remainingTime / (1000 * 60 * 60));
+            var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+            
+            timerDisplay.textContent = ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
         }
 
-        setInterval(updateTimer, 1000); // Update timer every second
+        var timerInterval = setInterval(updateTimer, 1000); // Update timer every second
 
         // Counter
         var counterDisplay = document.getElementById('counterDisplay');
