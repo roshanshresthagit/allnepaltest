@@ -31,6 +31,7 @@ class Subject(models.Model):
             choice4 = row['D']
             answer= row['Answer']
             reason = row['reason']
+            mark = row['Mark']
 
             question = Question.objects.create(subject=self, text=question_text)
 

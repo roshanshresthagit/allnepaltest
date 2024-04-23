@@ -88,7 +88,7 @@
         // Function to update submit button state based on the number of questions solved
         function updateSubmitButtonState() {
             const submitButton = document.getElementById("submit-button");
-            const numQuestionsToEnable = 2; // Change this to the desired number of questions to solve before enabling the button
+            const numQuestionsToEnable = 1; // Change this to the desired number of questions to solve before enabling the button
 
             if (questionCounter >= numQuestionsToEnable) {
                 submitButton.disabled = false;
