@@ -137,7 +137,7 @@ main {
     margin-right: 10px;
 }
 
-.pagination-button {
+.pagination-button, .submit-button {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -147,7 +147,7 @@ main {
     transition: background-color 0.3s ease;
 }
 
-.pagination-button:hover {
+.submit-button:hover, .pagination-button:hover {
     background-color: #0056b3;
 }
 
