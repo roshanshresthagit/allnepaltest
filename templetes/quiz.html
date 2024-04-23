@@ -15,9 +15,7 @@
                     <input value="{{option.text}}" type="radio" name="{{option.question.id}}" id="{{option.id}}">
                     {{option.text}}
                 </label>
-                {% if option.is_correct %}
-                <span>{{option.text}}</span>
-                {% endif %}
+                
             </div>
             {% endfor %}
         </div>
