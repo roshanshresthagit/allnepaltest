@@ -1,14 +1,19 @@
+{% load static %}
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+<link rel="stylesheet" href="{% static 'css/header.css' %}">
+
 <header>
     <nav>
-        <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="#">Courses</a></li>
-            <li><a href="#">Tests</a></li>
-            <!-- Add more navigation items as needed -->
-        </ul>
+        <div class="container">
+            <h2>All Nepal Test</h2>
+            <div class="search-bar">
+                <i class="uli uli-search"></i>
+                <input type="search" placeholder="search">
+            </div>
+            <div class="button">
+                <p>Login</p>
+                <button class="btn">signup</button>
+            </div>
+        </div>
     </nav>
-    <form action="#" method="GET">
-        <input type="text" name="search" placeholder="Search...">
-        <button type="submit">Search</button>
-    </form>
 </header>
