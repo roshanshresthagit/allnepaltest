@@ -1,46 +1,3 @@
-/* header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-} */
-/* nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-nav ul li {
-    margin-right: 20px;
-}
-nav ul li:last-child {
-    margin-right: 0;
-}
-nav ul li a {
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-}
-form {
-    display: flex;
-    align-items: center;
-}
-form input[type="text"] {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #fff;
-}
-form button {
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-} */
-
 /* Category Card Styles */
 .category-cards {
     display: flex;
@@ -160,107 +117,6 @@ main {
     margin-right: 10px;
 }
 
-/*===============timer card=================*/
-
-
-
-
-/* Category Card Styles */
-.category-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 20px;
-}
-.category-card {
-    background-color: #f4f4f4;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 10px;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-}
-.category-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-.category-card h2 {
-    margin-top: 0;
-}
-.category-card p {
-    margin-bottom: 10px;
-}
-.category-card a {
-    text-decoration: none;
-    color: #333;
-    background-color: #4CAF50;
-    padding: 10px 20px;
-    border-radius: 5px;
-    display: inline-block;
-    transition: background-color 0.3s ease;
-}
-.category-card a:hover {
-    background-color: #45a049;
-}
-
-/* Footer Styles */
-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-    margin-top: auto; /* This will push the footer to the bottom */
-}
-footer p {
-    margin: 5px 0;
-}
-.social-links a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 10px;
-}
-/* Body Styles */
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-}
-main {
-    flex: 1; /* This will make main take remaining space */
-}
-
-/*================== quize page design starts from here =========================*/
-
-.quiz-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.question-card {
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-    width: 600px; 
-}
-
-.question-text {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.option {
-    margin-bottom: 10px;
-}
-
-.option label {
-    margin-right: 10px;
-}
-
 .pagination-button {
     background-color: #007bff;
     color: #fff;
@@ -271,18 +127,6 @@ main {
     transition: background-color 0.3s ease;
 }
 
-.pagination-button:hover {
-    background-color: #0056b3;
-}
-
-#pagination-buttons {
-    margin-top: 20px;
-    margin-bottom: 20px; 
-}
-
-#pagination-buttons button {
-    margin-right: 10px;
-}
 
 /*===============timer card=================*/
 
