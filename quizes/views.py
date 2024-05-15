@@ -14,7 +14,7 @@ def display_subjects(request, category_id):
 def quiz_view(request, subject_id):
     quiz = Subject.objects.filter(id=subject_id).first()
     questions = Question.objects.filter(subject_id=subject_id)
-    selected_questions = random.sample(list(questions),2) 
+    selected_questions = random.sample(list(questions),20) 
     context ={"quiz":selected_questions}
     return render(request,'quiz.html',context)
 
