@@ -1,146 +1,151 @@
-{% extends 'base.html' %}
-{% load static %}
+    {% extends 'base.html' %}
+    {% load static %}
 
-{% block content %}
-<div class="quiz-container">
-    <div id="quiz-list">
-        {% for question in quiz %}
-        <div class="question-card">
-            <div class="question-text">
-                <p>{{forloop.counter}}. {{question.text}}</p>
-            </div>
-            {% for option in question.choice_set.all %}
-            <div class="option">
-                <label for="{{option.id}}">
-                    <input value="{{option.text}}" type="radio" name="{{option.question.id}}" id="{{option.id}}">
-                    {{option.text}}
-                </label>
-                
+    {% block content %}
+    <div class="quiz-container">
+        <div id="quiz-list">
+            {% for question in quiz %}
+            <div class="question-card">
+                <div class="question-text">
+                    <p>{{forloop.counter}}. {{question.text}}</p>
+                </div>
+                {% for option in question.choice_set.all %}
+                <div class="option">
+                    <label for="{{option.id}}">
+                        <input value="{{option.text}}" type="radio" name="{{option.question.id}}" id="{{option.id}}">
+                        {{option.text}}
+                    </label>
+                    
+                </div>
+                {% endfor %}
             </div>
             {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-    <div id="pagination-buttons">
-        <button id="prev-button" class="pagination-button" disabled>Previous</button>
-        <button id="next-button" class="pagination-button">Next</button>
-        <button id="submit-button" class="submit-button" disabled>Submit</button>
-    </div>
-    <div class="quiz-info">
-        <div class="quiz-info-card">
-            <div class="timer">Timer: <span id="timerDisplay">00:00</span></div>
-            <div class="questions-solved">Questions Solved: <span id="counterDisplay">0</span></div>
+        <div id="pagination-buttons">
+            <button id="prev-button" class="pagination-button" disabled>Previous</button>
+            <button id="next-button" class="pagination-button">Next</button>
+            <button id="submit-button" class="submit-button" disabled>Submit</button>
+        </div>
+        <div class="quiz-info">
+            <div class="quiz-info-card">
+                <div class="timer">Timer: <span id="timerDisplay">00:00</span></div>
+                <div class="questions-solved">Questions Solved: <span id="counterDisplay">0</span></div>
+            </div>
         </div>
     </div>
-</div>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const quizList = document.getElementById("quiz-list");
-        const prevButton = document.getElementById("prev-button");
-        const nextButton = document.getElementById("next-button");
-        const questions = document.querySelectorAll(".question-card");
-        const numPerPage = 10;
-        let currentPage = 0;
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const quizList = document.getElementById("quiz-list");
+            const prevButton = document.getElementById("prev-button");
+            const nextButton = document.getElementById("next-button");
+            const questions = document.querySelectorAll(".question-card");
+            const numPerPage = 10;
+            let currentPage = 0;
 
-        // Timer
-        var timerDisplay = document.getElementById('timerDisplay');
-        var startTime = new Date().getTime() + (2 * 60 * 60 * 1000) + (1 * 60 * 1000); // Start from 2 hours 1 minute
-        updateTimer(); // Update timer initially to avoid delay
+            // Timer
+            var timerDisplay = document.getElementById('timerDisplay');
+            var startTime = new Date().getTime() + (2 * 60 * 60 * 1000) + (1 * 60 * 1000); // Start from 2 hours 1 minute
+            updateTimer(); // Update timer initially to avoid delay
 
-        function updateTimer() {
-            var currentTime = new Date().getTime();
-            var remainingTime = startTime - currentTime;
+            function updateTimer() {
+                var currentTime = new Date().getTime();
+                var remainingTime = startTime - currentTime;
 
-            if (remainingTime <= 0) {
-                clearInterval(timerInterval);
-                timerDisplay.textContent = '00:00:00';
-                return;
+                if (remainingTime <= 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.textContent = '00:00:00';
+                    return;
+                }
+
+                var hours = Math.floor(remainingTime / (1000 * 60 * 60));
+                var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+                
+                timerDisplay.textContent = ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
             }
 
-            var hours = Math.floor(remainingTime / (1000 * 60 * 60));
-            var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-            
-            timerDisplay.textContent = ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
-        }
+            var timerInterval = setInterval(updateTimer, 1000); // Update timer every second
 
-        var timerInterval = setInterval(updateTimer, 1000); // Update timer every second
+            // Counter
+            var counterDisplay = document.getElementById('counterDisplay');
+            var questionCounter = 0;
 
-        // Counter
-        var counterDisplay = document.getElementById('counterDisplay');
-        var questionCounter = 0;
-
-        // Function to increment question counter
-        function incrementCounter() {
-            questionCounter++;
-            counterDisplay.textContent = questionCounter;
-            updateSubmitButtonState();
-        }
-
-        // Attach event listener to radio buttons to count answered questions
-        var radioButtons = document.querySelectorAll('input[type="radio"]');
-        radioButtons.forEach(function(radioButton) {
-            radioButton.addEventListener('change', incrementCounter);
-        });
-
-        // Function to update submit button state based on the number of questions solved
-        function updateSubmitButtonState() {
-            const submitButton = document.getElementById("submit-button");
-            const numQuestionsToEnable = 1; // Change this to the desired number of questions to solve before enabling the button
-
-            if (questionCounter >= numQuestionsToEnable) {
-                submitButton.disabled = false;
-            } else {
-                submitButton.disabled = true;
+            // Function to increment question counter
+            function incrementCounter() {
+                questionCounter++;
+                counterDisplay.textContent = questionCounter;
+                updateSubmitButtonState();
             }
-        }
 
-        // Event listener for previous button
-        prevButton.addEventListener("click", function() {
-            if (currentPage > 0) {
-                currentPage--;
-                showPage(currentPage);
-            }
-        });
+            // Attach event listener to radio buttons to count answered questions
+            var radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(function(radioButton) {
+                radioButton.addEventListener('change', incrementCounter);
+            });
 
-        // Event listener for next button
-        nextButton.addEventListener("click", function() {
-            if (currentPage < Math.ceil(questions.length / numPerPage) - 1) {
-                currentPage++;
-                showPage(currentPage);
-            }
-        });
+            // Function to update submit button state based on the number of questions solved
+            function updateSubmitButtonState() {
+                const submitButton = document.getElementById("submit-button");
+                const numQuestionsToEnable = 1; // Change this to the desired number of questions to solve before enabling the button
 
-        // Function to show page based on current page number
-        function showPage(page) {
-            questions.forEach((question, index) => {
-                if (index >= page * numPerPage && index < (page + 1) * numPerPage) {
-                    question.style.display = "block";
+                if (questionCounter >= numQuestionsToEnable) {
+                    submitButton.disabled = false;
                 } else {
-                    question.style.display = "none";
+                    submitButton.disabled = true;
+                }
+            }
+
+            // Event listener for previous button
+            prevButton.addEventListener("click", function() {
+                if (currentPage > 0) {
+                    currentPage--;
+                    showPage(currentPage);
+                    scrollToTop();
                 }
             });
-            updateButtons();
-        }
 
-        // Function to update pagination buttons state
-        function updateButtons() {
-            prevButton.style.visibility = currentPage === 0 ? "hidden" : "visible";
-            prevButton.disabled = currentPage === 0;
-            nextButton.style.visibility = currentPage === Math.ceil(questions.length / numPerPage) - 1 ? "hidden" : "visible";
-            nextButton.disabled = currentPage === Math.ceil(questions.length / numPerPage) - 1;
-        }
+            // Event listener for next button
+            nextButton.addEventListener("click", function() {
+                if (currentPage < Math.ceil(questions.length / numPerPage) - 1) {
+                    currentPage++;
+                    showPage(currentPage);
+                    scrollToTop();
+                }
+            });
 
-        // Show initial page
-        showPage(currentPage);
-    });
+            // Function to show page based on current page number
+            function showPage(page) {
+                questions.forEach((question, index) => {
+                    if (index >= page * numPerPage && index < (page + 1) * numPerPage) {
+                        question.style.display = "block";
+                    } else {
+                        question.style.display = "none";
+                    }
+                });
+                updateButtons();
+            }
+            function scrollToTop() {
+            window.scrollTo(0,0);
+             }
 
-    // Form submission logic
-    document.getElementById('submit-button').addEventListener('click', function(event) {
-        // Submit the form via AJAX or perform any additional logic here
-        // Example: You can use fetch() or jQuery.ajax() to submit the form data asynchronously
-        // and handle the response accordingly
-        console.log("Submitting quiz answers...");
-    });
-</script>
-{% endblock content %}
+            // Function to update pagination buttons state
+            function updateButtons() {
+                prevButton.style.visibility = currentPage === 0 ? "hidden" : "visible";
+                prevButton.disabled = currentPage === 0;
+                nextButton.style.visibility = currentPage === Math.ceil(questions.length / numPerPage) - 1 ? "hidden" : "visible";
+                nextButton.disabled = currentPage === Math.ceil(questions.length / numPerPage) - 1;
+            }
+
+            // Show initial page
+            showPage(currentPage);
+        });
+
+        // Form submission logic
+        document.getElementById('submit-button').addEventListener('click', function(event) {
+            // Submit the form via AJAX or perform any additional logic here
+            // Example: You can use fetch() or jQuery.ajax() to submit the form data asynchronously
+                // and handle the response accordingly
+                console.log("Submitting quiz answers...");
+        });
+    </script>
+    {% endblock content %}
