@@ -42,6 +42,8 @@ class Subject(models.Model):
 
             reason = Answerreason.objects.create(question=question,text=reason)
 
+            mark = Marks.objects.create(question=question,text=mark)
+
 
 
 
@@ -81,4 +83,11 @@ class Answerreason(models.Model):
 
     def __str__(self):
         return self.text[:50]
+    
+class Marks(models.Model):
+    question = models.OneToOneField(Question,on_delete=models.CASCADE)
+    text = models.CharField(max_length=50)
+
+    def __str__(self) -> str:
+        return self.text
         

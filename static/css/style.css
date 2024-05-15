@@ -14,6 +14,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
 }
+
 .category-card:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
@@ -72,6 +73,7 @@ main {
 }
 
 .question-card {
+    position: relative;
     background-color: #f9f9f9;
     border-radius: 10px;
     padding: 20px;
@@ -80,9 +82,27 @@ main {
     transition: box-shadow 0.3s ease;
     width: 600px; 
 }
+.question-header {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: #f7f3f3; /* Background color of mark */
+    padding: 5px; /* Adjust padding as needed */
+    border-radius: 5px; /* Rounded corners */
+}
+.marks{ 
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-style: italic;
+    color: rgb(152, 155, 155);
+
+}
+
 
 .question-text {
     font-weight: bold;
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 

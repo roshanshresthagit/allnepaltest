@@ -6,16 +6,17 @@
         <div id="quiz-list">
             {% for question in quiz %}
             <div class="question-card">
+                <p class="marks">Mark: {{ question.marks }}</p>
+             
                 <div class="question-text">
-                    <p>{{forloop.counter}}. {{question.text}}</p>
+                    <p>{{ forloop.counter }}. {{ question.text }}</p>
                 </div>
                 {% for option in question.choice_set.all %}
                 <div class="option">
-                    <label for="{{option.id}}">
-                        <input value="{{option.text}}" type="radio" name="{{option.question.id}}" id="{{option.id}}">
-                        {{option.text}}
+                    <label for="{{ option.id }}">
+                        <input value="{{ option.text }}" type="radio" name="{{ option.question.id }}" id="{{ option.id }}">
+                        {{ option.text }}
                     </label>
-                    
                 </div>
                 {% endfor %}
             </div>
@@ -32,7 +33,7 @@
                 <div class="questions-solved">Questions Solved: <span id="counterDisplay">0</span></div>
             </div>
         </div>
-    </div>
+    </div>  
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const quizList = document.getElementById("quiz-list");
