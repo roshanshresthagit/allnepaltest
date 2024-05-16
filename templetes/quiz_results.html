@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div>
+    <h1>Total Marks Obtained: {{ totalMarks }}</h1>
+    <div class="quiz-answers">
+        {% for question in quiz %}
+            <div class="question-card">
+                <p>{{ forloop.counter }}. {{ question.text }}</p>
+                <p>Correct Answer: {{ question.correct_answer }}</p>
+                {% if userAnswers %}
+                    {% for userAnswer in userAnswers %}
+                        {% if userAnswer.questionNumber == forloop.counter %}
+                            {% if userAnswer.selectedOption == question.correct_answer %}
+                                <p style="color: green;">Your Answer: {{ userAnswer.selectedOption }}</p>
+                            {% else %}
+                                <p>Your Answer: {{ userAnswer.selectedOption }}</p>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

@@ -3,37 +3,38 @@
 
     {% block content %}
     <div class="quiz-container">
-        <div id="quiz-list">
-            {% for question in quiz %}
-            <div class="question-card">
-                <p class="marks">Mark: {{ question.marks }}</p>
-             
-                <div class="question-text">
-                    <p>{{ forloop.counter }}. {{ question.text }}</p>
-                </div>
-                {% for option in question.choice_set.all %}
-                <div class="option">
-                    <label for="{{ option.id }}">
-                        <input value="{{ option.text }}" type="radio" name="{{ option.question.id }}" id="{{ option.id }}">
-                        {{ option.text }}
-                    </label>
+        <form id="quizForm" action="{% url 'quiz_results' %}" method="POST">
+            <div id="quiz-list">
+                {% for question in quiz %}
+                <div class="question-card">
+                    <p class="marks">Mark: {{ question.marks }}</p>
+                    <div class="question-text">
+                        <p>{{ forloop.counter }}. {{ question.text }}</p>
+                    </div>
+                    {% for option in question.choice_set.all %}
+                    <div class="option">
+                        <label for="{{ option.id }}">
+                            <input value="{{ option.text }}" type="radio" name="{{ option.question.id }}" id="{{ option.id }}">
+                            {{ option.text }}
+                        </label>
+                    </div>
+                    {% endfor %}
                 </div>
                 {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-        <div id="pagination-buttons">
-            <button id="prev-button" class="pagination-button" disabled>Previous</button>
-            <button id="next-button" class="pagination-button">Next</button>
-            <button id="submit-button" class="submit-button" disabled>Submit</button>
-        </div>
-        <div class="quiz-info">
-            <div class="quiz-info-card">
-                <div class="timer">Timer: <span id="timerDisplay">00:00</span></div>
-                <div class="questions-solved">Questions Solved: <span id="counterDisplay">0</span></div>
+            <div id="pagination-buttons">
+                <button id="prev-button" class="pagination-button" disabled>Previous</button>
+                <button id="next-button" class="pagination-button">Next</button>
+                <button id="submit-button" class="submit-button" disabled>Submit</button>
             </div>
-        </div>
-    </div>  
+            <div class="quiz-info">
+                <div class="quiz-info-card">
+                    <div class="timer">Timer: <span id="timerDisplay">00:00</span></div>
+                    <div class="questions-solved">Questions Solved: <span id="counterDisplay">0</span></div>
+                </div>
+            </div>
+        </form>
+    </div>    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const quizList = document.getElementById("quiz-list");
@@ -42,6 +43,31 @@
             const questions = document.querySelectorAll(".question-card");
             const numPerPage = 10;
             let currentPage = 0;
+
+
+            // Form submission logic
+        document.getElementById('submit-button').addEventListener('click', function(event) {
+            // Prevent the default form submission
+            event.preventDefault();
+            
+            // Collect user answers
+            const userAnswers = [];
+            questions.forEach((question, index) => {
+                const selectedOption = question.querySelector('input[type="radio"]:checked');
+                if (selectedOption) {
+                    userAnswers.push({
+                        question_id: selectedOption.name,
+                        selected_option: selectedOption.value
+                    });
+                }
+            });
+            
+            // Save user answers to session storage
+            sessionStorage.setItem('user_answers', JSON.stringify(userAnswers));
+            
+            // Submit the form
+            quizForm.submit();
+        });
 
             // Timer
             var timerDisplay = document.getElementById('timerDisplay');
