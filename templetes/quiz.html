@@ -4,6 +4,7 @@
     {% block content %}
     <div class="quiz-container">
         <form id="quizForm" action="{% url 'quiz_results' %}" method="POST">
+            {% csrf_token %}
             <div id="quiz-list">
                 {% for question in quiz %}
                 <div class="question-card">
